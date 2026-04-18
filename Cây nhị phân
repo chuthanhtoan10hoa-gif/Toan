@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* createNode(int x) {
+    Node* p = new Node();
+    p->data = x;
+    p->left = p->right = NULL;
+    return p;
+}
+
+Node* insert(Node* root, int x) {
+    if (root == NULL) return createNode(x);
+    if (x < root->data)
+        root->left = insert(root->left, x);
+    else
+        root->right = insert(root->right, x);
+    return root;
+}
+
+void inOrder(Node* root) {
+    if (root != NULL) {
+        inOrder(root->left);
+        cout << root->data << " ";
+        inOrder(root->right);
+    }
+}
+
+int main() {
+    int n;
+    cout << "Nhap so phan tu: ";
+    cin >> n;
+
+    int a[n];
+    Node* root = NULL;
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        root = insert(root, a[i]);
+    }
+
+    cout << "Mang sau khi sap xep: ";
+    inOrder(root);
+
+    return 0;
+}
